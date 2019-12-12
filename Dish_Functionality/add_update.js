@@ -47,17 +47,18 @@ createForm.addEventListener('submit', (e) => {
 })
 // setup your html and see the data on DOM
 const setupFavourites = (data) => {
- 
+
   if (data.length){
     let html='';
   data.forEach(doc => {
     const list = doc.data();
     console.log(doc._key.path.segments[6])
+    console.log(list.image)
     console.log(doc.data())
-    
+
     const li = `
       <li>
-        <div><input onclick="showpic('${list.image}','${list.ingredients}','${list.name}','${list.preparation}',${list.servings},'${list.url}')" style="margin:25px 10px 3px 0px;float:left;width:100px" type="image" src="${list.image}" alt="Submit" ><span style="clear:left;display:block;text-align:center">${list.name}</span></div>
+        <div><input onclick="showpic('${list.image}','${list.ingredients}','${list.name}','${list.preparation}',${list.servings},'${list.url}')" style="margin:25px 10px 3px 0px;float:left;width:100px" type="image" src="${list.image}" onerror="this.onerror=null;this.src='https://via.placeholder.com/200';" ><span style="clear:left;display:block;text-align:center">${list.name}</span></div>
       </li>
     `;
     html += li;
