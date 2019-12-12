@@ -22,51 +22,6 @@ let url = document.getElementById("url")
 const createdRecipeList = document.querySelector('.createdRecipe')
 const listofFavourites = document.querySelector('.listofFavourites')
 
-// let button = document.getElementById("button")
-// let updateButton = document.getElementById("update")
-// let textboxName = document.getElementById("textboxName")
-// let textboxRecipe = document.getElementById("textboxRecipe")
-// let textboxPrep = document.getElementById("textboxPrep")
-// let textboxServ = document.getElementById("textboxServ")
-
-//Admin Purpose
-// var docRef1 = db.collection("Recipes").doc("Recipe1");
-// docRef1.set({
-//   name: "American Burger",
-//   recipe: "blahblahblahblah",
-//   prep: "something",
-//   url: "www.google.com"
-// })
-// .then(function() {
-//   console.log("Document successfully written!");
-
-// })
-// .catch(function(error) {
-//   console.error("Error writing document: ", error);
-// });
-
-// docRef1.get().then(function(doc) {
-//   if (doc.exists) {
-//     let dishName = `<label>Name: ${doc.data().name}</label>`
-//     let dishRecipe = `<label>Name: ${doc.data().recipe}</label>`
-//     let dishPrep = `<label>Name: ${doc.data().prep}</label>`
-//     let dishURL = `<label>Name: ${doc.data().url}</label>`
-//     name.innerHTML = dishName;
-//     recipe.innerHTML = dishRecipe;
-//     preparation.innerHTML = dishPrep;
-//     Url.innerHTML = dishURL;
-
-//   } else {
-//       // doc.data() will be undefined in this case
-//       console.log("No such document!");
-//   }
-// }).catch(function(error) {
-//   console.log("Error getting document:", error);
-// });
-
-// db.collection('Recipes').onSnapshot(snapshot => {
-//   setupFavourites(snapshot.docs);
-// })
 docRef.onSnapshot(snapshot => {
  setupFavourites(snapshot.docs); 
 })
@@ -91,10 +46,8 @@ createForm.addEventListener('submit', (e) => {
   })
 })
 // setup your html and see the data on DOM
-
 const setupFavourites = (data) => {
  
-  // console.log(data)
   if (data.length){
     let html='';
   data.forEach(doc => {
@@ -112,8 +65,6 @@ const setupFavourites = (data) => {
   listofFavourites.innerHTML = html
   }
 }
-
-
     function showpic(thePicture,ingred1,name,prep1,serve,urls){
    document.getElementById('ok').src = `${thePicture}`
    document.getElementById('vi').src = `${urls}`
@@ -139,107 +90,5 @@ const setupFavourites = (data) => {
   }
    document.getElementById('p').innerHTML = "Prep: " + html1
    document.getElementById('s').innerHTML = "Servings: " + serve
-
  }
 
- 
-//  app.get("/", (req, res) => {
-//   res.sendFile(__dirname + "/homeMock.html");
-// });
-// app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-// button.addEventListener("click",()=>{
-//   getRecipe();
-// })
-// updateButton.addEventListener("click",()=>{
-//   console.log(db.collection("Recipes"))
-
-//   updateRecipe();
-// })
-
-// function getRecipe(){
-// // User INPUT
-// // recipe: `${textboxRecipe.value}`,
-// // name: `${textboxName.value}`,
-// // prep: `${textboxPrep.value}`,
-// // serving: `${textboxServ.value}`,
-// // url: "www.google.com"
-//   db.collection("Recipes").add({
-//   name: createForm.name.value,
-//   ingredients: createForm.recipe.value,
-//   preparation: createForm.preparation.value,
-//   url:'www.google.com',
-//   servings: createForm.servings.value,
-//    image: createForm.url.value
-// }).then(() => {
-//   //cleanup and close the modal, reset
-//   const modal = document.querySelector('#modal-create');
-//   M.Modal.getInstance(modal).close();
-//   createForm.reset();
-// })
-
-//Fetching User Input
-
-// .then(function(doc) {
-//   console.log(doc.id)
-//   db.collection("Recipes").doc(doc.id).get().then(function(doc){
-//   console.log(doc)
-
-//   if (doc.exists) {
-//     let dishName = `<label>Name: ${doc.data().name}</label>`
-//     let dishRecipe = `<label>Recipe: ${doc.data().recipe}</label>`
-//     let dishPrep = `<label>Prep: ${doc.data().prep}</label>`
-//     let dishServ = `<label>Servings: ${doc.data().serving}`
-//     let dishURL = `<a href="https://www.somedomain.com/${doc.id}"><image width="300" height="300" src="#"></image></a>`
-
-//     name.innerHTML = dishName;
-//     recipe.innerHTML = dishRecipe;
-//     preparation.innerHTML = dishPrep;
-//     servings.innerHTML = dishServ;
-//     Url.innerHTML = dishURL;
-
-//   } else {
-//       // doc.data() will be undefined in this case
-//       console.log("No such document!");
-//   }
-// }).catch(function(error) {
-//   console.log("Error getting document:", error);
-// });
-// })
-// }
-
-// function updateRecipe(){
-//   db.collection("Recipes").doc(window.location.pathname).update({
-//     recipe: `${textboxRecipe.value}`,
-//     name: `${textboxName.value}`,
-//     prep: `${textboxPrep.value}`,
-//     serving: `${textboxServ.value}`,
-//     url: "www.google.com"
-//   })
-
-//   //Fetching User Input
-
-//   .then(function(doc) {
-//     console.log(doc.id)
-//     db.collection("Recipes").doc(doc.id).get().then(function(doc){
-//     console.log(doc)
-
-//     if (doc.exists) {
-//       let dishName = `<label>Name: ${doc.data().name}</label>`
-//       let dishRecipe = `<label>Recipe: ${doc.data().recipe}</label>`
-//       let dishPrep = `<label>Prep: ${doc.data().prep}</label>`
-//       let dishServ = `<label>Servings: ${doc.data().serving}`
-//       let dishURL = `<video width="300" height="300" controls><source src="${doc.data().url}"></video>`
-//       name.innerHTML = dishName;
-//       recipe.innerHTML = dishRecipe;
-//       preparation.innerHTML = dishPrep;
-//       servings.innerHTML = dishServ;
-//       Url.innerHTML = dishURL;
-
-//     } else {
-//         // doc.data() will be undefined in this case
-//         console.log("No such document!");
-//     }
-//   }).catch(function(error) {
-//     console.log("Error getting document:", error);
-//   });
-// })
