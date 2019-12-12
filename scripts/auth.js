@@ -1,16 +1,17 @@
 db.collection('Recipes').onSnapshot(snapshot => {
+  console.log(snapshot.docs)
   showAllRecipes(snapshot.docs)
 })
 // LISTEN AUTH STATUS CHANGES
 auth.onAuthStateChanged(user => {
   if(user){
     db.collection('Favourites').onSnapshot(snapshot => {
-      favouriteRecipes(snapshot.docs);
+      mySharedRecipes(snapshot.docs);
     }, err => console.log(err.message));
     setupUI(user)
   } else {
     setupUI()
-    setupFavourites([])
+    mySharedRecipes([])
     console.log('user logged out')
   }
 })
