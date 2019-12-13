@@ -19,7 +19,6 @@ let recipe = document.getElementById("recipe");
 let preparation = document.getElementById("preparation");
 let servings = document.getElementById("servings");
 let url = document.getElementById("url");
-// const createdRecipeList = document.querySelector('.createdRecipe')
 const listofRecipes = document.querySelector(".listofRecipes");
 
 ////// Loads All existing Recipes to Page
