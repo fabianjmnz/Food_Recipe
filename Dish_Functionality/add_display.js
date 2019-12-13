@@ -1,4 +1,4 @@
-
+//inintalizing firebase database
 const firebaseConfig = {
   apiKey: "AIzaSyA0STLHFZxlgZ0sn4FQRhHunX0rIipNt7U",
   authDomain: "recipes-project-824a9.firebaseapp.com",
@@ -12,7 +12,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 var firestore = firebase.firestore()
 
-
+////// Variables 
 const docRef = firestore.collection("Recipes")
 let name = document.getElementById("name")
 let recipe = document.getElementById("recipe")
@@ -22,9 +22,12 @@ let url = document.getElementById("url")
 const createdRecipeList = document.querySelector('.createdRecipe')
 const listofFavourites = document.querySelector('.listofFavourites')
 
+////// Loads All existing Recipes to Page
 docRef.onSnapshot(snapshot => {
  setupFavourites(snapshot.docs); 
 })
+
+////// Creates a form to have User input Recipes
 const createForm = document.querySelector('#create-form')
 createForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -45,20 +48,18 @@ createForm.addEventListener('submit', (e) => {
     })
   })
 })
+
 // setup your html and see the data on DOM
 const setupFavourites = (data) => {
-
   if (data.length){
     let html='';
   data.forEach(doc => {
     const list = doc.data();
-    console.log(doc._key.path.segments[6])
-    console.log(list.image)
-    console.log(doc.data())
-
+    // console.log(doc._key.path.segments[6]) Name of each unique id
+    const x = doc._key.path.segments[6]
     const li = `
       <li>
-        <div><input onclick="showpic('${list.image}','${list.ingredients}','${list.name}','${list.preparation}',${list.servings},'${list.url}')" style="margin:25px 10px 3px 0px;float:left;width:100px" type="image" src="${list.image}" onerror="this.onerror=null;this.src='https://via.placeholder.com/200';" ><span style="clear:left;display:block;text-align:center">${list.name}</span></div>
+        <div><input onclick="showpic('${x}',${list.image}','${list.ingredients}','${list.name}','${list.preparation}',${list.servings},'${list.url}')" style="margin:25px 10px 3px 0px;float:left;width:100px" type="image" src="${list.image}" onerror="this.onerror=null;this.src='https://via.placeholder.com/200';" ><a onclick="mydelete(this)">Delete</button><span style="clear:left;display:block;text-align:center">${list.name}</span></div>
       </li>
     `;
     html += li;
@@ -66,10 +67,11 @@ const setupFavourites = (data) => {
   listofFavourites.innerHTML = html
   }
 }
-    function showpic(thePicture,ingred1,name,prep1,serve,urls){
-   document.getElementById('ok').src = `${thePicture}`
-   document.getElementById('vi').src = `${urls}`
 
+//////// Populates the right side of the screen with Info of the Picture you clicked on
+function showpic(thePicture,ingred1,name,prep1,serve,urls){
+  document.getElementById('ok').src = `${thePicture}`
+  document.getElementById('vi').src = `${urls}`
   document.getElementById('n').innerHTML = "Name: "+ name
   let array = ingred1.split(',')
   console.log(array)
@@ -77,7 +79,6 @@ const setupFavourites = (data) => {
   for(i=0;i<(array.length);i++){
     const li = 
     `<li>${array[i]}</li>`
-
     html += li
     console.log(html)
   }
@@ -92,4 +93,11 @@ const setupFavourites = (data) => {
    document.getElementById('p').innerHTML = "Prep: " + html1
    document.getElementById('s').innerHTML = "Servings: " + serve
  }
+
+ /////// Deleted Functionality
+function mydelete(obj){
+  let li = obj.parentElement.parentElement
+  listofFavourites.removeChild(li)
+}
+
 
