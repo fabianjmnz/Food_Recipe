@@ -1,17 +1,17 @@
 db.collection('Recipes').onSnapshot(snapshot => {
   showAllRecipes(snapshot.docs)
 })
+
 // LISTEN AUTH STATUS CHANGES
 auth.onAuthStateChanged(user => {
   if(user){
-    db.collection('Favourites').onSnapshot(snapshot => {
-      favouriteRecipes(snapshot.docs);
+    db.collection('Recipes').onSnapshot(snapshot => {
+      mySharedRecipes(snapshot.docs);
     }, err => console.log(err.message));
     setupUI(user)
   } else {
     setupUI()
-    setupFavourites([])
-    console.log('user logged out')
+    mySharedRecipes([])
   }
 })
 
@@ -33,6 +33,7 @@ createForm.addEventListener('submit', (e) => {
     createForm.reset();
   })
 })
+
 // SIGN UP the user
 const signupForm = document.querySelector('#signup-form');
 signupForm.addEventListener('submit', (e) => {
@@ -60,7 +61,6 @@ const logout = document.querySelector('#logout');
 logout.addEventListener('click', (e)=>{
   e.preventDefault();
   auth.signOut().then(() => {
-    console.log("user signed out")
     window.location = "fakeindex.html"
   })
 })
@@ -76,7 +76,6 @@ loginForm.addEventListener('submit', (e) => {
   
   // log the user in
   auth.signInWithEmailAndPassword(email, password).then((cred) => {
-    console.log(cred.user);
     
     // cleanup after yourself:), that is close the modal and reset it
     const modal = document.querySelector('#modal-login')
