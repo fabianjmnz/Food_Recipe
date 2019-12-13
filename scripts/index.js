@@ -14,7 +14,6 @@ const setupUI = (user) => {
       const html = `
         <div> email: ${user.email}</div>
         <div> Logged in as ${doc.data().firstName}</div>
-        <div id="myID" onclick="myIDD(this)" >${doc.id}</div>
       `;
       accountDetails.innerHTML = html
     })
