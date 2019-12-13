@@ -7,7 +7,10 @@ const loggedInLinks = document.querySelectorAll('.logged-in');
 const allRecipes = document.querySelector('.allRecipes')
 const accountDetails = document. querySelector('.account-details');
 
-const usersID = db.collection('users').doc(user.uid);
+// const idid = auth.uid;
+// console.log(idid)
+
+//const NANO = db.collection('users')
 
 // setup UI toggle between logged in and logged out
 const setupUI = (user) => {
@@ -16,6 +19,10 @@ const setupUI = (user) => {
     //   key : value
     // })
     db.collection('users').doc(user.uid).get().then(doc => {
+      console.log(doc.data())
+      //console.log(user.firstName)
+      //console.log(doc.data.firstName)
+      //console.log(user.uid)
       const html = `
         <div> email: ${user.email}</div>
         <div> Logged in as ${doc.data().firstName}</div>
@@ -48,10 +55,10 @@ const showAllRecipes = (recipes) => {
         </li>
     `;
     html += li;
-    console.log(html)
+    //console.log(html)
   })
   allRecipes.innerHTML = html
-  console.log(allRecipes)
+  //console.log(allRecipes)
 }
 
 // setup your html and see the data on DOM for shredRecipes
@@ -88,19 +95,21 @@ function addToFavourites(name1,ingredients1,id){
   // NAN.add({
   //   NANO : name1
   // })
-  
-  const someName9 = function myIDD(obj){
-    return (obj.innerText)
-  }
-  
-  db.collection('users').doc(someName9)
+  let user = auth.currentUser;
+  console.log(user)
+  let anotheruser = user.uid;
+  //console.log(anotheruser);
+  db.collection('users').doc(anotheruser)
   .collection("favorites")
   .add({
     someName: name1
   })
-  console.log(name1)
+  //console.log(name1)
 }
 
+function myIDD(obj){
+  return (obj.innerText)
+}
 
 
 
@@ -126,7 +135,7 @@ db.collection("data").doc("one").set(docData).then(function(){
 //   id: this.id
 // })
   const d= document.getElementById("myID")
-console.log(d)
+//console.log(d)
 
 // setup materialize components
 document.addEventListener('DOMContentLoaded', function(){

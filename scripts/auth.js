@@ -1,5 +1,5 @@
 db.collection('Recipes').onSnapshot(snapshot => {
-  console.log(snapshot.docs)
+  //console.log(snapshot.docs)
   showAllRecipes(snapshot.docs)
 })
 // LISTEN AUTH STATUS CHANGES
@@ -12,7 +12,7 @@ auth.onAuthStateChanged(user => {
   } else {
     setupUI()
     mySharedRecipes([])
-    console.log('user logged out')
+    //console.log('user logged out')
   }
 })
 
@@ -61,7 +61,7 @@ const logout = document.querySelector('#logout');
 logout.addEventListener('click', (e)=>{
   e.preventDefault();
   auth.signOut().then(() => {
-    console.log("user signed out")
+    //console.log("user signed out")
     window.location = "fakeindex.html"
   })
 })
@@ -77,7 +77,7 @@ loginForm.addEventListener('submit', (e) => {
   
   // log the user in
   auth.signInWithEmailAndPassword(email, password).then((cred) => {
-    console.log(cred.user);
+   // console.log(cred.user);
     
     // cleanup after yourself:), that is close the modal and reset it
     const modal = document.querySelector('#modal-login')
